@@ -1,1 +1,3 @@
-export default () => <p>about page </p>;
+import Form from "../components/Form";
+
+export default () => <Form />;

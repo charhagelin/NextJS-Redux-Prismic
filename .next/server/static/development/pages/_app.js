@@ -2121,10 +2121,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "redux");
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(redux__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _prismicReducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./prismicReducer */ "./reducers/prismicReducer.js");
+/* harmony import */ var redux_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux-form */ "redux-form");
+/* harmony import */ var redux_form__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(redux_form__WEBPACK_IMPORTED_MODULE_2__);
+
 
 
 var rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  data: _prismicReducer__WEBPACK_IMPORTED_MODULE_1__["default"]
+  data: _prismicReducer__WEBPACK_IMPORTED_MODULE_1__["default"],
+  form: redux_form__WEBPACK_IMPORTED_MODULE_2__["reducer"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (rootReducer);
 
@@ -2436,6 +2440,17 @@ module.exports = require("redux");
 /***/ (function(module, exports) {
 
 module.exports = require("redux-devtools-extension");
+
+/***/ }),
+
+/***/ "redux-form":
+/*!*****************************!*\
+  !*** external "redux-form" ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("redux-form");
 
 /***/ }),
 
