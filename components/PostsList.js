@@ -8,32 +8,29 @@ class PostsList extends Component {
   componentDidMount() {
     this.props.fetchAllPrismic();
   }
-  //spara ner datan i posts i en const för att sedan använda
-  renderPosts() {
-    return (
-      <div>
-        {this.props.posts &&
-          Object.keys(this.props.posts).map(key => {
-            const posts = this.props.posts[key];
-            const data = this.props.posts[key].data;
-            console.log("data", data);
-            return (
-              <ul key={posts.id}>
-                <li>{RichText.asText(data.title)}</li>
-                <li>{RichText.asText(data.description)}</li>
-                <img alt="cover" src={data.image.url} />
-              </ul>
-            );
-          })}
-      </div>
-    );
-  }
 
+  renderPosts() {
+    if (!this.props.data.length) return <p>Loading...</p>;
+    const posts = this.props.data.filter(post => {
+      return post.type === "post";
+    });
+    return Object.keys(posts).map(key => {
+      const postId = posts[key].id;
+      const post = posts[key].data;
+      console.log("postID:", postId);
+      return (
+        <ul key={postId}>
+          <li>{RichText.asText(post.title)}</li>
+          <li>{RichText.asText(post.description)}</li>
+          <img alt="cover" src={post.image.url} />
+        </ul>
+      );
+    });
+  }
   render() {
-    console.log("fetch", this.props.posts);
     return (
       <div>
-        <h3>header</h3>
+        <p>header</p>
         {this.renderPosts()}
       </div>
     );
@@ -42,7 +39,7 @@ class PostsList extends Component {
 
 function mapStateToProps(state) {
   return {
-    posts: state.posts
+    data: state.data
   };
 }
 

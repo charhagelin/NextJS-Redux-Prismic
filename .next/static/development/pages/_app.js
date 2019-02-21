@@ -95,7 +95,26 @@ var Header = function Header(props) {
       lineNumber: 18
     },
     __self: this
-  }, "Posts")))), props.children);
+  }, "Posts"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 21
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    href: "/products",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 22
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 23
+    },
+    __self: this
+  }, "Products")))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Header);
@@ -13651,11 +13670,10 @@ __webpack_require__.r(__webpack_exports__);
 function prismicReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
-  console.log("action", action);
 
   switch (action.type) {
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__["FETCH_PRISMIC"]:
-      return action.posts;
+      return action.data;
 
     default:
       return state;
@@ -13680,7 +13698,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  posts: _prismicReducer__WEBPACK_IMPORTED_MODULE_1__["default"]
+  data: _prismicReducer__WEBPACK_IMPORTED_MODULE_1__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (rootReducer);
 

@@ -23,7 +23,9 @@ function fetchAllPrismic() {
     prismic_javascript__WEBPACK_IMPORTED_MODULE_1___default.a.api(apiEndpoint, {
       accessToken: accessToken
     }).then(function (api) {
-      api.query(prismic_javascript__WEBPACK_IMPORTED_MODULE_1___default.a.Predicates.at("document.type", "post")).then(function (response) {
+      api.query("") // Prismic.Predicates.at("document.type", "post")
+      // .query(Prismic.Predicates.at("document.type", "products"))
+      .then(function (response) {
         dispatch(fetchPrismic(response.results));
       }).catch(function (error) {
         throw error;
@@ -31,11 +33,11 @@ function fetchAllPrismic() {
     });
   };
 }
-function fetchPrismic(posts) {
-  console.log("fetching", posts);
+function fetchPrismic(data) {
+  // console.log("fetching", data);
   return {
     type: _types__WEBPACK_IMPORTED_MODULE_0__["FETCH_PRISMIC"],
-    posts: posts
+    data: data
   };
 }
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/process/browser.js */ "./node_modules/process/browser.js")))
@@ -107,67 +109,67 @@ function (_Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.fetchAllPrismic();
-    } //spara ner datan i posts i en const för att sedan använda
-
+    }
   }, {
     key: "renderPosts",
     value: function renderPosts() {
-      var _this = this;
-
-      return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", {
+      if (!this.props.data.length) return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("p", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 14
+          lineNumber: 13
         },
         __self: this
-      }, this.props.posts && _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(this.props.posts).map(function (key) {
-        var posts = _this.props.posts[key];
-        var data = _this.props.posts[key].data;
-        console.log("data", data);
+      }, "Loading...");
+      var posts = this.props.data.filter(function (post) {
+        return post.type === "post";
+      });
+      return _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(posts).map(function (key) {
+        var postId = posts[key].id;
+        var post = posts[key].data;
+        console.log("postID:", postId);
         return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("ul", {
-          key: posts.id,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 21
-          },
-          __self: this
-        }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("li", {
+          key: postId,
           __source: {
             fileName: _jsxFileName,
             lineNumber: 22
           },
           __self: this
-        }, prismic_reactjs__WEBPACK_IMPORTED_MODULE_7__["RichText"].asText(data.title)), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("li", {
+        }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("li", {
           __source: {
             fileName: _jsxFileName,
             lineNumber: 23
           },
           __self: this
-        }, prismic_reactjs__WEBPACK_IMPORTED_MODULE_7__["RichText"].asText(data.description)), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("img", {
-          alt: "cover",
-          src: data.image.url,
+        }, prismic_reactjs__WEBPACK_IMPORTED_MODULE_7__["RichText"].asText(post.title)), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("li", {
           __source: {
             fileName: _jsxFileName,
             lineNumber: 24
           },
           __self: this
+        }, prismic_reactjs__WEBPACK_IMPORTED_MODULE_7__["RichText"].asText(post.description)), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("img", {
+          alt: "cover",
+          src: post.image.url,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 25
+          },
+          __self: this
         }));
-      }));
+      });
     }
   }, {
     key: "render",
     value: function render() {
-      console.log("fetch", this.props.posts);
       return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 35
+          lineNumber: 32
         },
         __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("h3", {
+      }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("p", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 36
+          lineNumber: 33
         },
         __self: this
       }, "header"), this.renderPosts());
@@ -179,7 +181,7 @@ function (_Component) {
 
 function mapStateToProps(state) {
   return {
-    posts: state.posts
+    data: state.data
   };
 }
 
@@ -189,45 +191,7 @@ function mapDispatchToProps(dispatch) {
   }, dispatch);
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_10__["connect"])(mapStateToProps, mapDispatchToProps)(PostsList)); // {this.state.doc &&
-//     Object.keys(this.state.doc).map(key => {
-//       const posts = this.state.doc[key];
-//       const data = this.state.doc[key].data;
-//       console.log("data", data);
-//       return (
-//         <ul key={posts.id}>
-//           <li>{RichText.asText(data.title)}</li>
-//           <li>{RichText.asText(data.description)}</li>
-//           <img alt="cover" src={data.image.url} />
-//         </ul>
-//       );
-//     })}
-//   state = {
-//     doc: null
-//   };
-//   // Link Resolver
-//   linkResolver(doc) {
-//     // Define the url depending on the document type
-//     if (doc.type === "post") {
-//       return "/post/" + doc.uid;
-//     }
-//     // Default to homepage
-//     return "/";
-//   }
-//   componentDidMount() {
-//     const apiEndpoint = "https://pristastic.cdn.prismic.io/api/v2";
-//     const accessToken =
-//       "MC5YR3ZDVUJVQUFDY0FDdllO.de-_vUbvv73vv71z77-977-977-9C--_ve-_ve-_vUIsdxsd77-9Au-_ve-_ve-_ve-_vQLvv73vv73vv70RAzw-";
-//     Prismic.api(apiEndpoint, { accessToken }).then(api => {
-//       api
-//         .query(Prismic.Predicates.at("document.type", "post"))
-//         .then(response => {
-//           if (response) {
-//             this.setState({ doc: response.results });
-//           }
-//         });
-//     });
-//   }
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_10__["connect"])(mapStateToProps, mapDispatchToProps)(PostsList));
 
 /***/ }),
 
@@ -6471,8 +6435,7 @@ __webpack_require__.r(__webpack_exports__);
 var _jsxFileName = "C:\\Users\\Charlotte Hagelin\\Desktop\\nextjs\\pages\\posts.js";
 
 
-
-var PostsPage = function PostsPage() {
+/* harmony default export */ __webpack_exports__["default"] = (function () {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PostsList__WEBPACK_IMPORTED_MODULE_1__["default"], {
     __source: {
       fileName: _jsxFileName,
@@ -6480,9 +6443,7 @@ var PostsPage = function PostsPage() {
     },
     __self: this
   });
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (PostsPage);
+});
 
 /***/ }),
 
